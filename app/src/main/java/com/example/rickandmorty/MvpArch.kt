@@ -12,6 +12,8 @@ interface Mvp {
 
     interface Presenter {
         fun onClickmeOptionSelected(num: Double)
+
+        fun onLaunchRequestOptionSelected()
     }
 
 }
