@@ -4,18 +4,26 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
+import com.example.rickandmorty.character.data.repository.RickAndMortyCharacterRepository
+import com.example.rickandmorty.character.domain.usecase.GetAllCharactersUc
 import retrofit2.Retrofit
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), Mvp.View {
 
     private lateinit var mainPresenter: Mvp.Presenter
 
+    @Inject
+    lateinit var mainPresenter2: MainPresenter
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        (applicationContext as RickAndMortyApplication).appComponent.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         mainPresenter = MainPresenter (mainView = this)
         initViews()
     }
+
     override fun showMessage() {
         Retrofit.Builder()
         Toast.makeText(this,"Button clicked!", Toast.LENGTH_SHORT).show()

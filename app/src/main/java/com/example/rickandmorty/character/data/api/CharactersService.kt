@@ -1,6 +1,6 @@
-package com.example.rickandmorty.data.api
+package com.example.rickandmorty.character.data.api
 
-import com.example.rickandmorty.data.model.CharactersDto
+import com.example.rickandmorty.character.data.model.CharactersDto
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

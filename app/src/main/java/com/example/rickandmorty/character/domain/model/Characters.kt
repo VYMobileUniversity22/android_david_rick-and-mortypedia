@@ -1,19 +1,12 @@
-package com.example.rickandmorty.domain.model
+package com.example.rickandmorty.character.domain.model
 
 data class MultipleCharacters(
-    val characters: List<Result>
+    val characters: List<Character>
+)
+data class Characters(
+    val results: List<Character>
 )
 data class Character(
-    val info: Info,
-    val results: List<Result>
-)
-data class Info(
-    val count: Int,
-    val pages: Int,
-    val next: String,
-    val prev: Any
-)
-data class Result(
     val id: Int,
     val name: String,
     val status: String,
