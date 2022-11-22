@@ -1,7 +1,6 @@
 package com.example.rickandmorty
 
-import org.junit.Assert.*
-
+import kotlinx.coroutines.Dispatchers
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -28,7 +27,7 @@ class MainPresenterTest() {
         val num: Double = 0.5
         //when
         sut.onClickmeOptionSelected(num = num)
-        //assert
+        //then
         verify(sut.mainView).showMessage()
     }
 
@@ -36,8 +35,10 @@ class MainPresenterTest() {
     fun `When 'click me' option is selected, 'greetings' is assigned 'Hello'`() {
         //When
         sut.onClickmeOptionSelected(3.0)
-        //Assert
+        //then
         assert(sut.greetings == "Hello")
     }
+
+
 
 }

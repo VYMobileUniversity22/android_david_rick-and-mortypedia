@@ -1,11 +1,11 @@
-package com.example.rickandmorty.data.model
+package com.example.rickandmorty.character.data.model
 
 data class MultipleCharactersDto(
-    val characters: List<ResultDto>
+    val characters: List<CharacterDto>
 )
 data class CharactersDto(
     val info: InfoDto,
-    val results: List<ResultDto>
+    val results: List<CharacterDto>
 )
 data class InfoDto(
     val count: Int,
@@ -13,7 +13,7 @@ data class InfoDto(
     val next: String,
     val prev: Any
 )
-data class ResultDto(
+data class CharacterDto(
     val id: Int,
     val name: String,
     val status: String,
