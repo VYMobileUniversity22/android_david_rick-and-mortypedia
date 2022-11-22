@@ -10,7 +10,7 @@ import kotlin.coroutines.CoroutineContext
 class MainPresenter @Inject constructor(
     val mainView: Mvp.View,
     //Forma habitual, en el constructor en classes con constructor
-    //private val getAllCharactersUc: DomainLayerContract.PresentationLayer.UseCase
+    private val getAllCharactersUc: DomainLayerContract.PresentationLayer.UseCase
 ) : Mvp.Presenter, CoroutineScope {
 
     //Forma no habitual de inyectar dependencias, donde no hay constructor (Activity)
@@ -23,7 +23,7 @@ class MainPresenter @Inject constructor(
 
     //private val retrofitInstance: Retrofit by lazy { getRetrofitInstance(converterFactory = GsonConverterFactory.create()) }
     //private val characterService: CharactersService by lazy { retrofitInstance.create(CharactersService::class.java)}
-    private val getAllCharactersUc: DomainLayerContract.PresentationLayer.UseCase by lazy { GetAllCharactersUc() }
+    //private val getAllCharactersUc: DomainLayerContract.PresentationLayer.UseCase by lazy { GetAllCharactersUc() }
     /*init {
         (appComponent as RickAndMortyApplication).inject(this)
     }*/
@@ -41,13 +41,15 @@ class MainPresenter @Inject constructor(
 
     override fun onLaunchRequestOptionSelected() {
         job = launch {
-            try {
-                val characters: Characters = getAllCharactersUc.getAllCharacters()
-                //val response: CharactersDto? = characterService.getAllCharactersList()
-                println(characters.toString())
-            } catch (e: Exception) {
-                println(e.printStackTrace())
-            }
+           getAllCharactersUc.getAllCharacters().fold(
+               onSuccess = {characters ->
+                   println(characters.toString())
+                   greetings= characters.toString()
+               },
+               onFailure = { e ->
+                   println(e.printStackTrace())
+               }
+           )
         }
     }
 
