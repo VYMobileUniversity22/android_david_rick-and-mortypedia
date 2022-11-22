@@ -2,19 +2,20 @@ package com.example.rickandmorty.character.data.datasource
 
 import com.example.rickandmorty.character.data.api.CharactersService
 import com.example.rickandmorty.character.data.model.CharactersDto
-import com.example.rickandmorty.data.model.utils.getRetrofitInstance
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 
 interface CharactersDataSource {
 
-    suspend fun getAllCaractersListResponse(): CharactersDto?
+    suspend fun getAllCharactersListResponse(): Result<CharactersDto?>
 
 }
 
-class RickAndMortyCharacterDataSource : CharactersDataSource {
-    private val retrofitInstance: Retrofit by lazy { getRetrofitInstance(converterFactory = GsonConverterFactory.create()) }
+class RickAndMortyCharacterDataSource @Inject constructor(
+    private val retrofitInstance: Retrofit
+) : CharactersDataSource {
+    //private val retrofitInstance: Retrofit by lazy { getRetrofitInstance(converterFactory = GsonConverterFactory.create()) }
 
-    override suspend fun getAllCaractersListResponse(): CharactersDto? =
+    override suspend fun getAllCharactersListResponse(): Result<CharactersDto?> =
             retrofitInstance.create(CharactersService::class.java).getAllCharactersList()
 }

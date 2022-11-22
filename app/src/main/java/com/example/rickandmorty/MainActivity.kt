@@ -6,21 +6,23 @@ import android.widget.Button
 import android.widget.Toast
 import com.example.rickandmorty.character.data.repository.RickAndMortyCharacterRepository
 import com.example.rickandmorty.character.domain.usecase.GetAllCharactersUc
+import com.example.rickandmorty.character.presentation.di.CharactersPresentationModule
 import retrofit2.Retrofit
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), Mvp.View {
 
-    private lateinit var mainPresenter: Mvp.Presenter
-
     @Inject
-    lateinit var mainPresenter2: MainPresenter
+    lateinit var mainPresenter: Mvp.Presenter
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (applicationContext as RickAndMortyApplication).appComponent.inject(this)
+        //(applicationContext as RickAndMortyApplication).appComponent.inject(this)
         super.onCreate(savedInstanceState)
+        (application as RickAndMortyApplication).provideCharactersComponentFactory()
+            .create(module = CharactersPresentationModule(this)).inject(this)
         setContentView(R.layout.activity_main)
-        mainPresenter = MainPresenter (mainView = this)
         initViews()
     }
 
