@@ -9,7 +9,6 @@ import kotlin.coroutines.CoroutineContext
 
 class MainPresenter @Inject constructor(
     val mainView: Mvp.View,
-    //Forma habitual, en el constructor en classes con constructor
     private val getAllCharactersUc: DomainLayerContract.PresentationLayer.UseCase
 ) : Mvp.Presenter, CoroutineScope {
 
