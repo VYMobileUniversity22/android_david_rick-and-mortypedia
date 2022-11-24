@@ -1,6 +1,5 @@
 package com.example.rickandmorty.character.data.datasource
 
-import androidx.room.RoomDatabase
 import com.example.rickandmorty.character.data.api.CharactersService
 import com.example.rickandmorty.character.data.db.TestEntity
 import com.example.rickandmorty.character.data.model.CharactersDto
@@ -15,7 +14,7 @@ interface CharactersDataSource {
     }
 
     interface Local {
-        fun saveData(dto: CharactersDto)
+        suspend fun saveCharacterList(dto: CharactersDto)
 
     }
 
@@ -31,9 +30,11 @@ class RickAndMortyCharacterDataSource @Inject constructor(
         retrofitInstance.create(CharactersService::class.java).getAllCharactersList()
             .runCatching { body() }
 
-    override fun saveData(dto: CharactersDto) {
+
+
+    override suspend fun saveCharacterList(dto: CharactersDto) {
         val testEntity: TestEntity = with(dto) {
-            TestEntity(info.count.toString(),results.toString())
+            TestEntity(info = info.count.toString(), results = results.toString())
         }
         roomDatabaseInstance.testDao().insertAll(testEntity)
     }

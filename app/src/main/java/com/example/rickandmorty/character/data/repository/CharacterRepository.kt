@@ -1,6 +1,8 @@
 package com.example.rickandmorty.character.data.repository
 
 import com.example.rickandmorty.character.data.datasource.CharactersDataSource
+import com.example.rickandmorty.character.data.model.CharacterDto
+import com.example.rickandmorty.character.data.model.CharactersDto
 import com.example.rickandmorty.character.data.utils.toCharacters
 import com.example.rickandmorty.character.domain.DomainLayerContract
 import com.example.rickandmorty.character.domain.model.Characters
@@ -18,14 +20,14 @@ object RickAndMortyCharacterRepository : DomainLayerContract.DataLayer.Character
 
 
     override suspend fun getAllCharacterList(): Result<Characters> {
-        val result = charactersRemoteDataSource.getAllCharactersListResponse()
+        val result: Result<CharactersDto?> = charactersRemoteDataSource.getAllCharactersListResponse()
 
         return result.map { dto ->
             if(dto == null){
                 Characters(results = emptyList())
             }else{
                 withContext(Dispatchers.IO){
-                    charactersLocalDataSource.saveData(dto)
+                    charactersLocalDataSource.saveCharacterList(dto)
                 }
                 dto.toCharacters()
             }
