@@ -23,7 +23,10 @@ interface CharactersComponent {
 
     @Subcomponent.Factory
     interface Factory {
-        fun create(module: CharactersPresentationModule): CharactersComponent
+        fun create(
+            presentationModule: CharactersPresentationModule,
+            dataModule: CharactersDataModule
+        ): CharactersComponent
     }
 
     fun inject(activity: MainActivity)
