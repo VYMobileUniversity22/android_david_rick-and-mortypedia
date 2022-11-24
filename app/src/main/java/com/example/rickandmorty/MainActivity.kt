@@ -4,8 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
-import com.example.rickandmorty.character.data.repository.RickAndMortyCharacterRepository
-import com.example.rickandmorty.character.domain.usecase.GetAllCharactersUc
 import com.example.rickandmorty.character.presentation.di.CharactersPresentationModule
 import retrofit2.Retrofit
 import javax.inject.Inject

@@ -17,5 +17,6 @@ class RickAndMortyCharacterDataSource @Inject constructor(
     //private val retrofitInstance: Retrofit by lazy { getRetrofitInstance(converterFactory = GsonConverterFactory.create()) }
 
     override suspend fun getAllCharactersListResponse(): Result<CharactersDto?> =
-            retrofitInstance.create(CharactersService::class.java).getAllCharactersList()
+        retrofitInstance.create(CharactersService::class.java).getAllCharactersList()
+            .runCatching { body() }
 }
