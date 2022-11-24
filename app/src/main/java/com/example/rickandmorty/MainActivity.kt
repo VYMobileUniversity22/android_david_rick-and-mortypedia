@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
+import com.example.rickandmorty.character.data.di.CharactersDataModule
 import com.example.rickandmorty.character.presentation.di.CharactersPresentationModule
 import retrofit2.Retrofit
 import javax.inject.Inject
@@ -19,7 +20,10 @@ class MainActivity : AppCompatActivity(), Mvp.View {
         //(applicationContext as RickAndMortyApplication).appComponent.inject(this)
         super.onCreate(savedInstanceState)
         (application as RickAndMortyApplication).provideCharactersComponentFactory()
-            .create(module = CharactersPresentationModule(this)).inject(this)
+            .create(
+                presentationModule = CharactersPresentationModule(this),
+                dataModule = CharactersDataModule(this)
+                ).inject(this)
         setContentView(R.layout.activity_main)
         initViews()
     }

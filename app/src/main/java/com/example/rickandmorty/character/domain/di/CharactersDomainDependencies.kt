@@ -15,8 +15,13 @@ class CharactersDomainDependenciesModule() {
         getAllCharactersUc
 
     @Provides
-    fun provideCharacterRepository(characterDataSource: RickAndMortyCharacterDataSource): DomainLayerContract.DataLayer.CharacterRepository =
+    fun provideCharacterRemoteRepository(
+        characterDataSource: RickAndMortyCharacterDataSource,
+        localDataSource: RickAndMortyCharacterDataSource
+    ): DomainLayerContract.DataLayer.CharacterRepository =
         RickAndMortyCharacterRepository.apply {
-            charactersDataSource = characterDataSource
+            charactersRemoteDataSource = characterDataSource
+            charactersLocalDataSource = localDataSource
         }
+
 }
