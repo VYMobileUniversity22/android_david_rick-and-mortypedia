@@ -1,6 +1,7 @@
 package com.example.rickandmorty.character.data.datasource
 
 import com.example.rickandmorty.character.data.api.CharactersService
+import com.example.rickandmorty.character.data.db.CharacterEntity
 import com.example.rickandmorty.character.data.db.TestEntity
 import com.example.rickandmorty.character.data.model.CharactersDto
 import com.example.rickandmorty.common.db.ApplicationDatabase
@@ -14,7 +15,8 @@ interface CharactersDataSource {
     }
 
     interface Local {
-        suspend fun saveCharacterList(dto: CharactersDto)
+        suspend fun saveCharacterList(list: List<CharacterEntity>)
+        suspend fun fetchCharacterList(): List<CharacterEntity>
 
     }
 
@@ -32,10 +34,14 @@ class RickAndMortyCharacterDataSource @Inject constructor(
 
 
 
-    override suspend fun saveCharacterList(dto: CharactersDto) {
-        val testEntity: TestEntity = with(dto) {
+    override suspend fun saveCharacterList(list: List<CharacterEntity>) {
+        /*val testEntity: TestEntity = with(list) {
             TestEntity(info = info.count.toString(), results = results.toString())
         }
         roomDatabaseInstance.testDao().insertAll(testEntity)
+    }*/
+        roomDatabaseInstance.characterDao().insertAll(*list.toTypedArray())
     }
+
+    override suspend fun fetchCharacterList(): List<CharacterEntity> = roomDatabaseInstance.characterDao().getAll()
 }
