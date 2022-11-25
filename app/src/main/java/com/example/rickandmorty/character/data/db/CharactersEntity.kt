@@ -1,11 +1,13 @@
 package com.example.rickandmorty.character.data.db
 
+import androidx.room.ColumnInfo
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
 data class TestEntity(
-    @PrimaryKey(autoGenerate = true) val uid: Int,
+    @PrimaryKey(autoGenerate = true) val uid: Int = 0,
     val info: String,
     val results: String
 )
@@ -26,32 +28,28 @@ data class InfoEntity(
     val prev: Any
 )
 
-@Entity
+@Entity(tableName = "character_table")
 data class CharacterEntity(
-    @PrimaryKey val id: Int,
+    @PrimaryKey(autoGenerate = false) val id: Int,
     val name: String,
     val status: String,
     val species: String,
     val type: String,
     val gender: String,
-    val origin: OriginEntity,
-    val location: LocationEntity,
+    @Embedded val origin: OriginEntity,
+    @Embedded val location: LocationEntity,
     val image: String,
     val episode: List<String>,
     val url: String,
     val created: String
 )
 
-@Entity
 data class OriginEntity(
-    @PrimaryKey val uid: Int,
-    val name: String,
-    val url: String
+    @ColumnInfo(name = "origin_name") val name: String,
+    @ColumnInfo(name = "origin_url") val url: String
 )
 
-@Entity
 data class LocationEntity(
-    @PrimaryKey val uid: Int,
-    val name: String,
-    val url: String
+    @ColumnInfo(name = "location_name") val name: String,
+    @ColumnInfo(name = "location_url") val url: String
 )

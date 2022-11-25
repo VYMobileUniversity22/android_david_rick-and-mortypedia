@@ -1,5 +1,6 @@
 package com.example.rickandmorty
 
+import com.example.rickandmorty.character.domain.DomainLayerContract
 import kotlinx.coroutines.Dispatchers
 import org.junit.After
 import org.junit.Before
@@ -14,7 +15,8 @@ class MainPresenterTest() {
 
     @Before
     fun setUp() {
-        sut = MainPresenter(mock(Mvp.View::class.java))
+        sut = MainPresenter(mock(Mvp.View::class.java),
+            getAllCharactersUc = mock(DomainLayerContract.PresentationLayer.UseCase::class.java) )
     }
 
     @After

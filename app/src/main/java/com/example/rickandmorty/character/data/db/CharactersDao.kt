@@ -3,30 +3,31 @@ package com.example.rickandmorty.character.data.db
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 
-/*@Dao
+@Dao
 interface CharactersDao {
 
-    @Query("SELECT * FROM CharactersEntity")
-    fun getAll(): List<CharactersEntity>
+    @Query("SELECT * FROM character_table")
+    suspend fun getAll(): List<CharacterEntity>
 
-    @Insert
-    fun insertAll(vararg characters: CharactersEntity)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertAll(vararg characters: CharacterEntity)
 
     @Delete
-    fun delete(characters: CharactersEntity)
-}*/
+    suspend fun delete(characters: CharacterEntity)
+}
 
 @Dao
 interface TestDao {
 
     @Query("SELECT * FROM TestEntity")
-    fun getAll(): List<TestEntity>
+    suspend fun getAll(): List<TestEntity>
 
     @Insert
-    fun insertAll(vararg characters: TestEntity)
+    suspend fun insertAll(vararg characters: TestEntity)
 
     @Delete
-    fun delete(characters: TestEntity)
+    suspend fun delete(characters: TestEntity)
 }

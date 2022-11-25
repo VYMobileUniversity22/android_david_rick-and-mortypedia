@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
 import com.example.rickandmorty.character.data.di.CharactersDataModule
+import com.example.rickandmorty.character.di.CharactersComponent
+import com.example.rickandmorty.character.domain.model.Characters
 import com.example.rickandmorty.character.presentation.di.CharactersPresentationModule
 import retrofit2.Retrofit
 import javax.inject.Inject
@@ -19,11 +21,7 @@ class MainActivity : AppCompatActivity(), Mvp.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         //(applicationContext as RickAndMortyApplication).appComponent.inject(this)
         super.onCreate(savedInstanceState)
-        (application as RickAndMortyApplication).provideCharactersComponentFactory()
-            .create(
-                presentationModule = CharactersPresentationModule(this),
-                dataModule = CharactersDataModule(this)
-                ).inject(this)
+        getCharactersComponent()
         setContentView(R.layout.activity_main)
         initViews()
     }
@@ -31,6 +29,14 @@ class MainActivity : AppCompatActivity(), Mvp.View {
     override fun showMessage() {
         Retrofit.Builder()
         Toast.makeText(this,"Button clicked!", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun loadCharacters(data: Characters) {
+
+    }
+
+    override fun showErrorMessage(msg: String) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
 
 
@@ -45,5 +51,16 @@ class MainActivity : AppCompatActivity(), Mvp.View {
             setOnClickListener { mainPresenter.onLaunchSeveralRequestOptionSelected() }
         }
     }
+    private fun MainActivity.getCharactersComponent(): CharactersComponent =
+        (application as RickAndMortyApplication).provideCharactersComponentFactory()
+            .create(presentationModule = CharactersPresentationModule(this),
+                dataModule = CharactersDataModule
+            )
 
+    /*(application as RickAndMortyApplication).provideCharactersComponentFactory()
+    .create(
+    presentationModule = CharactersPresentationModule(this),
+    dataModule = CharactersDataModule(this)
+    ).inject(this)
+*/
 }
