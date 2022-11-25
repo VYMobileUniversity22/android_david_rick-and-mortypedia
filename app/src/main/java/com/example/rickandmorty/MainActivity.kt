@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity(), Mvp.View {
     }
 
     override fun loadCharacters(data: Characters) {
-
+        //TODO: acces 'RecyclerView' adapter and load 'data'
     }
 
     override fun showErrorMessage(msg: String) {
@@ -41,7 +41,9 @@ class MainActivity : AppCompatActivity(), Mvp.View {
 
 
     private fun initViews() {
-        val button: Button = findViewById(R.id.button)
+        //TODO: init 'Recycler view' using adapter and 'LinearLayout'
+
+        val button: Button = findViewById(R.id.button_load_message)
         button.setOnClickListener { mainPresenter.onClickmeOptionSelected(num = Math.random()) }
 
         val buttonRequest: Button = findViewById(R.id.button_coroutines)
