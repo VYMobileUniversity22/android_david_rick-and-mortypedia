@@ -43,10 +43,11 @@ class MainPresenter @Inject constructor(
            getAllCharactersUc.getAllCharacters().fold(
                onSuccess = {characters ->
                    println(characters.toString())
-                   greetings= characters.toString()
+                   mainView.loadCharacters(data = characters)
                },
                onFailure = { e ->
                    println(e.printStackTrace())
+                   mainView.showErrorMessage(msg = "Not yet implemented")
                }
            )
         }
