@@ -7,4 +7,16 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Color scheme for Rick&Morty Api-->
+
+    <color name="dark_gray">#3D373C</color>
+    <color name="green">#CC2F9331</color>
+    <color name="radioactive_green">#BF97ce4c</color>
+    <color name="api_pink">#e89ac7</color>
+    <color name="hair_brown">#44281d</color>
+    <color name="skin_color">#e4a788</color>
+    <color name="yellow">#f0e14a</color>
+    <color name="ligth_blue">#E4F9FF</color>
+
 </resources>

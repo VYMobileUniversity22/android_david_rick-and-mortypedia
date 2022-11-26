@@ -26,7 +26,7 @@ class MainActivityTest {
 
     @Test
     fun test() {
-        Espresso.onView(ViewMatchers.withId(R.id.button)).perform(ViewActions.click())
+        Espresso.onView(ViewMatchers.withId(R.id.button_load_message)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withText("Button clicked!")).check(matches(ViewMatchers.isDisplayed()))
     }
 

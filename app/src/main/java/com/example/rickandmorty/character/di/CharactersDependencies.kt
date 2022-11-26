@@ -15,7 +15,7 @@ object CharactersModule //Se le pone object delante por que no tiene datos ni co
 
 @Subcomponent(modules = [
     CharactersPresentationModule::class,
-    CharactersDataModule::class
+    CharactersDataModule::class,
 ])
 interface CharactersComponent {
 

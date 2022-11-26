@@ -17,4 +17,5 @@ class RickAndMortyApplication : Application(), CharactersComponentFactoryProvide
     }
 
     override fun provideCharactersComponentFactory(): CharactersComponent.Factory = appComponent.charactersComponentFactory()
+
 }

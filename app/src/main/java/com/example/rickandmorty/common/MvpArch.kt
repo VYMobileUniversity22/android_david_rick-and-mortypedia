@@ -6,10 +6,7 @@ interface Mvp {
 
     interface View {
         fun showMessage()
-        fun showLogMessage() {
-
-        }
-
+        fun showLogMessage() {}
         fun loadCharacters(data: Characters)
         fun showErrorMessage(msg: String)
     }
@@ -19,6 +16,8 @@ interface Mvp {
         fun onLaunchRequestOptionSelected()
         fun onLaunchSeveralRequestOptionSelected()
         fun onViewPaused()
+        fun onViewCreated(){
+            onLaunchRequestOptionSelected()
+        }
     }
-
 }
