@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.example.rickandmorty.R
 import com.example.rickandmorty.character.domain.model.Character
 
@@ -44,10 +45,9 @@ class CharactersAdapter(
         private val tvExtra: TextView by lazy { itemView.findViewById(R.id.tv_extras) }
 
         fun bindData(character: Character) {
-            //TODO: use 'Glide' or 'Coil' to load the image asynchronously
-            //imgProfile.setImageBitmap()
+            imgProfile.load(character.image)
             tvName.text = character.name
-            tvExtra.text = "species: ${character.species}, status${character.status}"
+            tvExtra.text = "${character.species}\n${character.status}"
 
         }
 

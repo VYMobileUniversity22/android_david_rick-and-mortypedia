@@ -26,7 +26,6 @@ class RickAndMortyCharacterDataSource @Inject constructor(
     private val retrofitInstance: Retrofit,
     private val roomDatabaseInstance: ApplicationDatabase
 ) : CharactersDataSource.Remote, CharactersDataSource.Local {
-    //private val retrofitInstance: Retrofit by lazy { getRetrofitInstance(converterFactory = GsonConverterFactory.create()) }
 
     override suspend fun getAllCharactersListResponse(): Result<CharactersDto?> =
         retrofitInstance.create(CharactersService::class.java).getAllCharactersList()
@@ -35,11 +34,7 @@ class RickAndMortyCharacterDataSource @Inject constructor(
 
 
     override suspend fun saveCharacterList(list: List<CharacterEntity>) {
-        /*val testEntity: TestEntity = with(list) {
-            TestEntity(info = info.count.toString(), results = results.toString())
-        }
-        roomDatabaseInstance.testDao().insertAll(testEntity)
-    }*/
+
         roomDatabaseInstance.characterDao().insertAll(*list.toTypedArray())
     }
 
