@@ -1,67 +1,66 @@
-package com.example.rickandmorty.main.view
+package com.example.rickandmorty.main.presentation.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.rickandmorty.Mvp
+import android.view.MenuItem
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.replace
 import com.example.rickandmorty.R
-import com.example.rickandmorty.RickAndMortyApplication
-import com.example.rickandmorty.character.data.di.CharactersDataModule
-import com.example.rickandmorty.character.di.CharactersComponent
-import com.example.rickandmorty.character.domain.model.Characters
-import com.example.rickandmorty.character.presentation.di.CharactersPresentationModule
-import com.example.rickandmorty.character.presentation.view.CharactersAdapter
-import retrofit2.Retrofit
-import javax.inject.Inject
+import com.example.rickandmorty.character.presentation.view.CharacterFragment
+import com.example.rickandmorty.databinding.ActivityMainBinding
+import com.example.rickandmorty.episode.presentation.view.EpisodesFragment
+import com.google.android.material.navigation.NavigationBarView.OnItemSelectedListener
+import dagger.hilt.android.AndroidEntryPoint
 
-class MainActivity : AppCompatActivity(), Mvp.View {
+@AndroidEntryPoint
+class MainActivity : AppCompatActivity(), OnItemSelectedListener {
 
-    @Inject
-    lateinit var mainPresenter: Mvp.Presenter
+    lateinit var mainBinding: ActivityMainBinding
+    private val charactersFragment: Fragment by lazy {CharacterFragment.newInstance()}
+    private val episodesFragment: Fragment by lazy { EpisodesFragment.newInstance() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        getCharactersComponent().inject(this)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        //setContentView(R.layout.activity_main)
         supportActionBar?.hide()
-        mainPresenter.onViewCreated()
+        mainBinding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(mainBinding.root)
+        initViews(savedState = savedInstanceState)
     }
 
-    override fun onPause() {
-        super.onPause()
-        mainPresenter.onViewPaused()
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.navigation_characters -> {
+                replaceWithCharactersFragment()
+                return true
+            }
+            R.id.navigation_episodes -> {
+                replaceWithEpisodesFragment()
+                return true
+            }
+        }
+        return false
     }
 
-    override fun showMessage() {
-        Retrofit.Builder()
-        Toast.makeText(this, "Button clicked!", Toast.LENGTH_SHORT).show()
+    private fun initViews(savedState: Bundle?) {
+        with(mainBinding.bottomNavigationView) {
+            setOnItemSelectedListener(this@MainActivity)
+            selectedItemId = savedState?.getInt("opened_fragment") ?: R.id.navigation_characters
+        }
     }
 
-    override fun loadCharacters(data: Characters) {
-        val recyclerView: RecyclerView = findViewById(R.id.rv_characters_data)
-        recyclerView.layoutManager = LinearLayoutManager (this, RecyclerView.VERTICAL, false)
-        val adapter = CharactersAdapter(data = (data.results).toMutableList())
-        recyclerView.adapter = adapter
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt("opened_fragment", mainBinding.bottomNavigationView.selectedItemId)
     }
 
-    override fun showErrorMessage(msg: String) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+    private fun replaceWithCharactersFragment() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_view, charactersFragment).commit()
+    }
+    private fun replaceWithEpisodesFragment() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_view, episodesFragment).commit()
     }
 
-
-    /*private fun initViews() {
-
-        val buttonRequest: Button = findViewById(R.id.button_coroutines)
-        buttonRequest.setOnClickListener { mainPresenter.onLaunchRequestOptionSelected() }
-
-    }*/
-
-    private fun MainActivity.getCharactersComponent(): CharactersComponent =
-        (application as RickAndMortyApplication).provideCharactersComponentFactory()
-            .create(
-                presentationModule = CharactersPresentationModule(this),
-                dataModule = CharactersDataModule
-            )
 }
