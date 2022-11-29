@@ -11,7 +11,6 @@ interface CharactersService {
         @GET("character/")
         suspend fun getAllCharactersList(@Query("page") page: Int = 1): Response<CharactersDto?>
 
-        /*@GET("character/{character_id}")
-        suspend fun getSingleCharacter(@Query("character_id") id: Int = 1): Response<CharactersDto?>*/
-
+        @GET("character/{character_id}")
+        suspend fun getSingleCharacter(@Query("character_id") id: Int = 1): Response<CharactersDto?>
 }

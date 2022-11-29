@@ -1,14 +1,10 @@
 package com.example.rickandmorty.character.data.repository
 
 import com.example.rickandmorty.character.data.datasource.CharactersDataSource
-import com.example.rickandmorty.character.data.db.CharacterEntity
 import com.example.rickandmorty.character.data.model.*
-import com.example.rickandmorty.character.domain.DomainLayerContract
 import com.example.rickandmorty.character.domain.model.Characters
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert.*
 
-import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test

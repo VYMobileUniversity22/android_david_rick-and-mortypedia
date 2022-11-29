@@ -5,6 +5,7 @@ import androidx.test.espresso.Espresso
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
+import com.example.rickandmorty.main.presentation.view.MainActivity
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -26,7 +27,7 @@ class MainActivityTest {
 
     @Test
     fun test() {
-        Espresso.onView(ViewMatchers.withId(R.id.button_load_message)).perform(ViewActions.click())
+        Espresso.onView(ViewMatchers.withId(R.id.navigation_characters)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withText("Button clicked!")).check(matches(ViewMatchers.isDisplayed()))
     }
 
