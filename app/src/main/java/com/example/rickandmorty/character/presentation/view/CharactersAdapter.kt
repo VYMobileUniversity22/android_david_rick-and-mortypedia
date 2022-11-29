@@ -10,11 +10,7 @@ import coil.load
 import com.example.rickandmorty.R
 import com.example.rickandmorty.character.domain.model.Character
 
-/*
-* Override
-* public
-* private
-* */
+
 class CharactersAdapter(
     private val data: MutableList<Character> = mutableListOf()
 ) : RecyclerView.Adapter<CharactersAdapter.CharactersViewHolder>() {
