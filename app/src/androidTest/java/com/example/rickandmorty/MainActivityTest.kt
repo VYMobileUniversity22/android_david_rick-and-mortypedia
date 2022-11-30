@@ -11,6 +11,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
+/*
 class MainActivityTest {
 
     @Rule
@@ -31,4 +32,4 @@ class MainActivityTest {
         Espresso.onView(ViewMatchers.withText("Button clicked!")).check(matches(ViewMatchers.isDisplayed()))
     }
 
-}
+}*/

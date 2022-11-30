@@ -3,6 +3,7 @@ package com.example.rickandmorty.character.domain.di
 import com.example.rickandmorty.character.domain.CharactersDomainLayerContract
 import com.example.rickandmorty.character.domain.model.Characters
 import com.example.rickandmorty.character.domain.usecase.GetAllCharactersUc
+import com.example.rickandmorty.character.domain.usecase.GetCharacterNextPageUc
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,6 +21,6 @@ class CharactersDomainDependencies {
 
     @Provides
     @Named("get_characters_next_page")
-    fun providesGetCharactersNextPageUc(usecase: GetAllCharactersUc) : @JvmSuppressWildcards CharactersDomainLayerContract.PresentationLayer.UseCase<Characters> = usecase
+    fun providesGetCharactersNextPageUc(getNexPageUc: GetCharacterNextPageUc) : @JvmSuppressWildcards CharactersDomainLayerContract.PresentationLayer.UseCase<Characters> = getNexPageUc
 
 }
