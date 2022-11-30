@@ -39,10 +39,11 @@ fun OriginDto.toBo() : Origin = Origin(name = name, url = url)
 fun LocationDto.toBo() : Location = Location(name = name, url = url)
 
 
-fun CharactersDto.toCharactersEntity(): List<CharacterEntity> = results.map { dto ->
+fun CharactersDto.toCharactersEntity(page: Int): List<CharacterEntity> = results.map { dto ->
     with(dto) {
         CharacterEntity(
             id = id,
+            page = page,
             name = name,
             status = status,
             species = species,

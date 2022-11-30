@@ -39,8 +39,7 @@ class CharactersViewModel @Inject constructor(
     fun onEndOfScrollReached(){
       viewModelScope.launch {
             getCharactersNextPageUc().onSuccess { characters ->
-                //characters.loadCharacters(data = characters)
-
+                _characters.value = characters
             }.onFailure { ch ->
                 ch.printStackTrace()
             }

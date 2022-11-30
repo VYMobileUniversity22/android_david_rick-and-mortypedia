@@ -7,5 +7,6 @@ import javax.inject.Inject
 class GetCharacterNextPageUc @Inject constructor(
     private val characterRepository: CharactersDomainLayerContract.DataLayer.CharacterRepository
 ) : CharactersDomainLayerContract.PresentationLayer.UseCase <Characters> {
-    override suspend fun invoke(): Result<Characters> = characterRepository.getAllCharacterList()
+    
+    override suspend fun invoke(): Result<Characters> = characterRepository.getCharactersNextPage()
 }

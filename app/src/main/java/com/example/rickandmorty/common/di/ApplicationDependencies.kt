@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.Room
 import com.example.rickandmorty.common.db.ApplicationDatabase
 import com.example.rickandmorty.data.model.utils.getRetrofitInstance
+import com.google.firebase.auth.FirebaseAuth
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -34,4 +35,8 @@ object UtilsModule {
         applicationContext,
         ApplicationDatabase::class.java,"rick-and-morty-db"
     ).build()
+
+    @Singleton
+    @Provides
+    fun providesFirebaseAuth(): FirebaseAuth = FirebaseAuth.getInstance()
 }
