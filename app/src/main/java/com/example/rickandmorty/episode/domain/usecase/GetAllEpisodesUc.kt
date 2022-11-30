@@ -9,5 +9,4 @@ class GetAllEpisodesUc @Inject constructor(
 ) : EpisodesDomainLayerContract.PresentationLayer.UseCase {
 
     override suspend fun getAllEpisodes(): Result<Episodes> = episodeRepository.getAllEpisodesList()
-
 }
